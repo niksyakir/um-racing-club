@@ -10,12 +10,36 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bebas);
 
   /* UM Racing brand colors */
   --color-navy: #1a2456;
   --color-navy-dark: #12193f;
   --color-race-red: #e31e2e;
   --color-gold: #f2a900;
+  --color-gold-dark: #c98700;
+
+  /* Navy-tinted elevation */
+  --shadow-soft: 0 1px 2px 0 rgba(26, 36, 86, 0.06), 0 1px 3px 0 rgba(26, 36, 86, 0.08);
+  --shadow-elevated: 0 4px 6px -2px rgba(26, 36, 86, 0.08), 0 10px 20px -6px rgba(26, 36, 86, 0.12);
+  --shadow-premium: 0 8px 10px -4px rgba(26, 36, 86, 0.1), 0 20px 40px -12px rgba(26, 36, 86, 0.22);
+  --shadow-glow-gold: 0 0 0 1px rgba(242, 169, 0, 0.15), 0 8px 24px -6px rgba(242, 169, 0, 0.35);
+  --shadow-glow-red: 0 4px 14px -2px rgba(227, 30, 46, 0.4);
+  --shadow-glow-red-lg: 0 8px 24px -4px rgba(227, 30, 46, 0.55);
+}
+
+:root {
+  --gradient-navy: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-dark) 100%);
+  --gradient-gold: linear-gradient(135deg, #ffc93c 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
+  --gradient-navy-radial: radial-gradient(circle at 30% 20%, rgba(242, 169, 0, 0.15), transparent 60%);
+}
+
+.bg-gradient-navy {
+  background-image: var(--gradient-navy);
+}
+
+.bg-gradient-gold {
+  background-image: var(--gradient-gold);
 }
 
 body {

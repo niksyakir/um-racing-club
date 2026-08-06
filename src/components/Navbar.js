@@ -27,9 +27,8 @@ const MORE_LINKS = [
   { href: "/sponsors", label: "Our Sponsors" },
   { href: "/merchandise", label: "Merchandise" },
   { href: "/contact", label: "Contact" },
+  { href: "/apply", label: "Apply" },
 ];
-
-const APPLY_LINK = { href: "/apply", label: "Apply" };
 
 function linkClass(active) {
   return `relative py-1 text-sm font-semibold uppercase tracking-wide transition-colors hover:text-gold ${
@@ -54,6 +53,7 @@ export default function Navbar() {
             alt="UM Racing"
             fill
             priority
+            sizes="144px"
             className="object-contain object-left"
           />
         </Link>
@@ -95,7 +95,7 @@ export default function Navbar() {
                   onClick={() => setIsMoreOpen(false)}
                   className="fixed inset-0 z-40 cursor-default bg-transparent"
                 />
-                <ul className="absolute left-1/2 top-full z-50 mt-3 w-48 -translate-x-1/2 rounded-lg border border-white/10 bg-navy py-2 shadow-xl">
+                <ul className="absolute right-0 top-full z-50 mt-3 w-48 rounded-lg border border-white/10 bg-navy py-2 shadow-xl">
                   {MORE_LINKS.map((link) => {
                     const active = pathname === link.href;
                     return (
@@ -115,12 +115,6 @@ export default function Navbar() {
                 </ul>
               </>
             )}
-          </li>
-
-          <li>
-            <Link href={APPLY_LINK.href} className={linkClass(pathname === APPLY_LINK.href)}>
-              {APPLY_LINK.label}
-            </Link>
           </li>
         </ul>
 

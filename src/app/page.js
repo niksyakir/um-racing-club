@@ -1,9 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
+import Card from "@/components/Card";
 import DepartmentCard from "@/components/DepartmentCard";
 import Reveal from "@/components/Reveal";
 import { departments } from "@/app/apply/data";
 import { sponsors } from "@/app/sponsors/data";
+import { prizeWinnings } from "@/app/achievements/data";
+
+const stats = [
+  { value: "1st", label: "FSAE EV — FSM 2026" },
+  { value: prizeWinnings, label: "NxGV 2025 Prize Winnings" },
+  { value: String(departments.length), label: "Engineering Departments" },
+  { value: String(sponsors.length), label: "Industry Sponsors" },
+];
 
 const highlights = [
   {
@@ -62,12 +71,12 @@ export default function HomePage() {
           <p className="text-sm font-semibold uppercase tracking-widest text-gold">
             UM Racing Team
           </p>
-          <h1 className="max-w-2xl text-4xl font-extrabold leading-tight md:text-5xl">
+          <h1 className="font-display max-w-2xl text-5xl leading-[0.95] tracking-wide md:text-7xl">
             Building Universiti Malaya&apos;s first Formula Student EV car
           </h1>
           <Link
             href="/apply"
-            className="rounded bg-race-red px-6 py-3 font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-race-red/90 hover:shadow-lg"
+            className="rounded bg-race-red px-6 py-3 font-semibold text-white shadow-glow-red transition-all duration-200 hover:-translate-y-0.5 hover:bg-race-red/90 hover:shadow-glow-red-lg"
           >
             Discover open positions
           </Link>
@@ -78,39 +87,59 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
-        <Reveal>
-          <div className="max-w-2xl">
-            <h2 className="text-2xl font-bold text-navy md:text-3xl">
-              About Us
-            </h2>
-            <p className="mt-3 text-gray-600">
-              UM Racing Team is an engineering club formed by students of the
-              Faculty of Engineering, Universiti Malaya. We apply the
-              knowledge from our courses to solve real-world engineering
-              challenges as a team, with one goal: building a car to compete
-              in the Formula Student Malaysia (FSM) NxGV Challenge.
-            </p>
-            <Link
-              href="/about"
-              className="mt-4 inline-block font-semibold text-race-red hover:underline"
-            >
-              Learn more →
-            </Link>
-          </div>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-          {highlights.map((item, index) => (
-            <Reveal key={item.title} delay={index * 100}>
-              <div className="h-full rounded-lg border border-navy/10 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <h3 className="font-bold text-navy">{item.title}</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  {item.description}
+      <div className="relative z-10 mx-auto -mt-12 max-w-5xl px-4 md:-mt-16 md:px-6">
+        <div className="grid grid-cols-2 gap-6 rounded-2xl bg-gradient-navy px-6 py-8 shadow-premium md:grid-cols-4 md:px-10">
+          {stats.map((stat, index) => (
+            <Reveal key={stat.label} delay={index * 100}>
+              <div className="text-center text-white">
+                <p className="font-display text-4xl tracking-wide text-gold md:text-5xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/70">
+                  {stat.label}
                 </p>
               </div>
             </Reveal>
           ))}
+        </div>
+      </div>
+
+      <section className="bg-white pb-16 pt-8">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <Reveal>
+            <div className="max-w-2xl">
+              <h2 className="font-display text-4xl tracking-wide text-navy md:text-5xl">
+                About Us
+              </h2>
+              <p className="mt-3 text-gray-600">
+                UM Racing Team is an engineering club formed by students of
+                the Faculty of Engineering, Universiti Malaya. We apply the
+                knowledge from our courses to solve real-world engineering
+                challenges as a team, with one goal: building a car to
+                compete in the Formula Student Malaysia (FSM) NxGV
+                Challenge.
+              </p>
+              <Link
+                href="/about"
+                className="mt-4 inline-block font-semibold text-race-red hover:underline"
+              >
+                Learn more →
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+            {highlights.map((item, index) => (
+              <Reveal key={item.title} delay={index * 100}>
+                <Card className="h-full !p-5">
+                  <h3 className="font-bold text-navy">{item.title}</h3>
+                  <p className="mt-2 text-sm text-gray-600">
+                    {item.description}
+                  </p>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -120,7 +149,7 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal>
-            <h2 className="text-2xl font-bold text-navy md:text-3xl">
+            <h2 className="font-display text-4xl tracking-wide text-navy md:text-5xl">
               Our Parts
             </h2>
             <p className="mt-2 max-w-2xl text-navy/70">
@@ -137,68 +166,75 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
-        <Reveal>
-          <h2 className="text-2xl font-bold text-navy md:text-3xl">
-            The Car
-          </h2>
-          <p className="mt-2 max-w-2xl text-gray-600">
-            Follow the build, and where we&apos;re headed next.
-          </p>
-        </Reveal>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
+      <section className="bg-gray-50 py-16">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
           <Reveal>
-            <DepartmentCard
-              name="Current Car"
-              description="Take a look at our current build — chassis, suspension, and powertrain."
-              ctaHref="/current-car"
-              ctaLabel="View Current Car"
-            />
+            <h2 className="font-display text-4xl tracking-wide text-navy md:text-5xl">
+              The Car
+            </h2>
+            <p className="mt-2 max-w-2xl text-gray-600">
+              Follow the build, and where we&apos;re headed next.
+            </p>
           </Reveal>
-          <Reveal delay={100}>
-            <DepartmentCard
-              name="Future Car Plans"
-              description="Our five-year roadmap toward an internationally competitive Formula Student EV."
-              ctaHref="/future-car"
-              ctaLabel="View Roadmap"
-            />
-          </Reveal>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <Reveal>
+              <DepartmentCard
+                name="Current Car"
+                description="Take a look at our current build — chassis, suspension, and powertrain."
+                ctaHref="/current-car"
+                ctaLabel="View Current Car"
+              />
+            </Reveal>
+            <Reveal delay={100}>
+              <DepartmentCard
+                name="Future Car Plans"
+                description="Our five-year roadmap toward an internationally competitive Formula Student EV."
+                ctaHref="/future-car"
+                ctaLabel="View Roadmap"
+              />
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-navy md:text-3xl">
-                Our Sponsors
-              </h2>
-              <p className="mt-2 max-w-2xl text-gray-600">
-                Proud to be supported by the following partners.
-              </p>
-            </div>
-            <Link
-              href="/sponsors"
-              className="font-semibold text-race-red hover:underline"
-            >
-              View All Sponsors →
-            </Link>
-          </div>
-        </Reveal>
-        <Reveal delay={150} className="mt-8 overflow-hidden">
-          <div className="flex w-max gap-6 animate-marquee">
-            {[...sponsors, ...sponsors].map((sponsor, i) => (
-              <div
-                key={`${sponsor.name}-${i}`}
-                className="flex h-24 w-40 flex-shrink-0 items-center justify-center rounded-lg border border-navy/10 bg-white p-3 text-center shadow-sm transition-shadow hover:shadow-lg"
-              >
-                <span className="text-xs font-bold text-navy">
-                  {sponsor.name}
-                </span>
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h2 className="font-display text-4xl tracking-wide text-navy md:text-5xl">
+                  Our Sponsors
+                </h2>
+                <p className="mt-2 max-w-2xl text-gray-600">
+                  Proud to be supported by the following partners.
+                </p>
               </div>
-            ))}
-          </div>
-        </Reveal>
+              <Link
+                href="/sponsors"
+                className="font-semibold text-race-red hover:underline"
+              >
+                View All Sponsors →
+              </Link>
+            </div>
+          </Reveal>
+          <Reveal delay={150} className="mt-8 overflow-hidden">
+            <div className="flex w-max gap-6 animate-marquee">
+              {[...sponsors, ...sponsors].map((sponsor, i) => (
+                <div
+                  key={`${sponsor.name}-${i}`}
+                  className="flex h-24 w-40 flex-shrink-0 flex-col items-center justify-center gap-2 rounded-xl border border-navy/10 bg-white p-3 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-navy font-display text-sm text-gold">
+                    {sponsor.name.charAt(0)}
+                  </span>
+                  <span className="text-xs font-bold text-navy">
+                    {sponsor.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       <section className="bg-gray-50 py-16">
@@ -207,7 +243,7 @@ export default function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-widest text-race-red">
               Milestones
             </p>
-            <h2 className="mt-1 text-2xl font-bold text-navy md:text-3xl">
+            <h2 className="font-display mt-1 text-4xl tracking-wide text-navy md:text-5xl">
               Club History: Achievements &amp; Records
             </h2>
           </Reveal>
@@ -225,9 +261,10 @@ export default function HomePage() {
                       }`}
                     >
                       <div className="md:w-1/2">
-                        <div className="overflow-hidden rounded-lg border border-navy/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                          <div className="flex aspect-video items-center justify-center border-b border-navy/10 bg-gray-100 text-sm font-medium text-gray-400">
-                            {milestone.title} — Photo Placeholder
+                        <div className="overflow-hidden rounded-xl border border-navy/10 bg-white shadow-elevated transition-all duration-300 hover:-translate-y-1 hover:shadow-premium">
+                          <div className="relative flex aspect-video items-center justify-center overflow-hidden border-b border-navy/10 bg-gradient-navy text-sm font-medium text-white/70">
+                            <div className="absolute inset-0 bg-[image:var(--gradient-navy-radial)]" />
+                            <span className="relative">{milestone.title} — Photo Placeholder</span>
                           </div>
                           <div className="p-6">
                             <p className="text-sm font-semibold text-race-red">
@@ -252,7 +289,7 @@ export default function HomePage() {
           <Reveal delay={milestones.length * 150}>
             <Link
               href="/achievements"
-              className="mt-12 inline-block rounded bg-navy px-6 py-3 font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-navy-dark hover:shadow-lg"
+              className="mt-12 inline-block rounded bg-gradient-navy px-6 py-3 font-semibold text-white shadow-elevated transition-all duration-200 hover:-translate-y-0.5 hover:shadow-premium"
             >
               View Full Achievements
             </Link>

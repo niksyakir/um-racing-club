@@ -1,10 +1,17 @@
+import Card from "@/components/Card";
+
 export default function RoadmapCard({ year, title, technicalFocus, teamGoals }) {
   return (
-    <div className="rounded-lg border border-navy/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-      <p className="text-sm font-semibold uppercase tracking-wide text-race-red">
-        Year {year}
-      </p>
-      <h3 className="mt-1 text-lg font-bold text-navy">{title}</h3>
+    <Card accent="red">
+      <div className="flex items-baseline gap-2">
+        <span className="font-display text-5xl leading-none text-race-red">
+          {year}
+        </span>
+        <span className="text-sm font-semibold uppercase tracking-wide text-navy/60">
+          Year
+        </span>
+      </div>
+      <h3 className="mt-2 text-lg font-bold text-navy">{title}</h3>
       <div className="mt-4 space-y-3 text-sm text-gray-600">
         <p>
           <span className="font-semibold text-navy">Technical Focus: </span>
@@ -15,6 +22,6 @@ export default function RoadmapCard({ year, title, technicalFocus, teamGoals }) 
           {teamGoals}
         </p>
       </div>
-    </div>
+    </Card>
   );
 }

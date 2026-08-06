@@ -1,3 +1,13 @@
+import Link from "next/link";
+
+const QUICK_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  { href: "/achievements", label: "Achievements" },
+  { href: "/sponsors", label: "Our Sponsors" },
+  { href: "/apply", label: "Apply" },
+];
+
 const SOCIAL_LINKS = [
   {
     href: "https://instagram.com/akiumformula",
@@ -33,13 +43,28 @@ const SOCIAL_LINKS = [
 export default function Footer() {
   return (
     <footer className="bg-navy text-white/80">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 md:flex-row md:items-start md:justify-between md:px-6">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:px-6">
         <div>
           <p className="text-lg font-extrabold text-white">UM RACING</p>
           <p className="mt-2 max-w-xs text-sm">
             Universiti Malaya&apos;s Formula Student team, building the
             university&apos;s first electric race car.
           </p>
+        </div>
+
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-gold">
+            Quick Links
+          </p>
+          <ul className="mt-2 space-y-1 text-sm">
+            {QUICK_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="transition-colors hover:text-gold">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>
