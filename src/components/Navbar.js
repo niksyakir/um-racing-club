@@ -150,7 +150,7 @@ export default function Navbar({ user = null, roles = [], profile = null }) {
         <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
           <Link href="/" onClick={() => setIsMenuOpen(false)} className="relative h-10 w-36">
             <Image
-              src="/image/UM Racing Logo.jpg"
+              src="/image/UM Racing Logo.png"
               alt="UM Racing"
               fill
               priority
@@ -200,7 +200,7 @@ export default function Navbar({ user = null, roles = [], profile = null }) {
         <nav className="relative flex h-16 shrink-0 items-center justify-between px-4 md:px-6">
           <Link href="/" onClick={() => setIsMenuOpen(false)} className="relative h-10 w-36">
             <Image
-              src="/image/UM Racing Logo.jpg"
+              src="/image/UM Racing Logo.png"
               alt="UM Racing"
               fill
               sizes="144px"
