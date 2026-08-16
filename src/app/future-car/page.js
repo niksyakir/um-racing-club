@@ -2,6 +2,11 @@ import RoadmapCard from "@/components/RoadmapCard";
 import Reveal from "@/components/Reveal";
 import { roadmap } from "./data";
 
+export const metadata = {
+  title: "Future Car Plans",
+  description: "UM Racing's five-year roadmap toward an internationally competitive Formula Student EV.",
+};
+
 export default function FutureCarPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 md:px-6">

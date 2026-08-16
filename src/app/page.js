@@ -3,16 +3,10 @@ import Link from "next/link";
 import Card from "@/components/Card";
 import DepartmentCard from "@/components/DepartmentCard";
 import Reveal from "@/components/Reveal";
+import CountdownTimer from "@/components/CountdownTimer";
+import { createClient } from "@/lib/supabase/server";
 import { departments } from "@/app/apply/data";
-import { sponsors } from "@/app/sponsors/data";
 import { prizeWinnings } from "@/app/achievements/data";
-
-const stats = [
-  { value: "1st", label: "FSAE EV — FSM 2026" },
-  { value: prizeWinnings, label: "NxGV 2025 Prize Winnings" },
-  { value: String(departments.length), label: "Engineering Departments" },
-  { value: String(sponsors.length), label: "Industry Sponsors" },
-];
 
 const highlights = [
   {
@@ -52,7 +46,28 @@ const milestones = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data: sponsors, error: sponsorsError } = await supabase
+    .from("sponsors")
+    .select("*")
+    .eq("is_active", true)
+    .order("name");
+  const sponsorList = sponsors ?? [];
+
+  const { data: event } = await supabase
+    .from("event_countdown")
+    .select("*")
+    .limit(1)
+    .maybeSingle();
+
+  const stats = [
+    { value: "1st", label: "FSAE EV — FSM 2026" },
+    { value: prizeWinnings, label: "NxGV 2025 Prize Winnings" },
+    { value: String(departments.length), label: "Engineering Departments" },
+    { value: String(sponsorList.length), label: "Industry Sponsors" },
+  ];
+
   return (
     <>
       <section
@@ -103,6 +118,26 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      {event && (
+        <section className="bg-navy py-16 text-white">
+          <div className="mx-auto max-w-6xl px-4 text-center md:px-6">
+            <Reveal>
+              <p className="text-sm font-semibold uppercase tracking-widest text-gold">
+                Next Event
+              </p>
+              <h2 className="font-display mt-1 text-4xl tracking-wide md:text-5xl">
+                {event.name}
+              </h2>
+            </Reveal>
+            <Reveal delay={100}>
+              <div className="mt-10">
+                <CountdownTimer eventAt={event.event_at} eventName={event.name} />
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <section className="bg-white pb-16 pt-8">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
@@ -217,23 +252,32 @@ export default function HomePage() {
               </Link>
             </div>
           </Reveal>
-          <Reveal delay={150} className="mt-8 overflow-hidden">
-            <div className="flex w-max gap-6 animate-marquee">
-              {[...sponsors, ...sponsors].map((sponsor, i) => (
-                <div
-                  key={`${sponsor.name}-${i}`}
-                  className="flex h-24 w-40 flex-shrink-0 flex-col items-center justify-center gap-2 rounded-xl border border-navy/10 bg-white p-3 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-navy font-display text-sm text-gold">
-                    {sponsor.name.charAt(0)}
-                  </span>
-                  <span className="text-xs font-bold text-navy">
-                    {sponsor.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+          {sponsorsError ? (
+            <p className="mt-8 text-sm text-race-red">
+              Couldn&apos;t load sponsors right now. Please check back later.
+            </p>
+          ) : (
+            <Reveal delay={150} className="mt-8 overflow-hidden">
+              <div className="flex w-max gap-6 animate-marquee">
+                {[...sponsorList, ...sponsorList].map((sponsor, i) => (
+                  <div
+                    key={`${sponsor.id}-${i}`}
+                    className="flex h-24 w-40 flex-shrink-0 flex-col items-center justify-center gap-2 rounded-xl border border-navy/10 bg-white p-3 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated"
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-navy font-display text-sm text-gold">
+                      {sponsor.name.charAt(0)}
+                    </span>
+                    <span className="text-xs font-bold text-navy">
+                      {sponsor.name}
+                    </span>
+                  </div>
+                ))}
+                {sponsorList.length === 0 && (
+                  <p className="text-sm text-gray-500">Sponsor listings coming soon.</p>
+                )}
+              </div>
+            </Reveal>
+          )}
         </div>
       </section>
 

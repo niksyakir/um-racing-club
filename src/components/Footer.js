@@ -6,6 +6,7 @@ const QUICK_LINKS = [
   { href: "/achievements", label: "Achievements" },
   { href: "/sponsors", label: "Our Sponsors" },
   { href: "/apply", label: "Apply" },
+  { href: "/privacy", label: "Privacy Policy" },
 ];
 
 const SOCIAL_LINKS = [

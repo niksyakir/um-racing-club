@@ -1,6 +1,12 @@
 import Card from "@/components/Card";
 import Reveal from "@/components/Reveal";
 
+export const metadata = {
+  title: "About Us",
+  description:
+    "UM Racing Team is Universiti Malaya's Formula Student engineering club, building the university's first electric race car.",
+};
+
 const missionPoints = [
   "To develop a Formula EV student car — a next-generation electric race car that embodies cutting-edge technology and sustainable engineering.",
   "To advance sustainable transportation by optimizing energy efficiency and promoting eco-friendly engineering practices.",

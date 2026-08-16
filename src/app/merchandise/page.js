@@ -1,5 +1,10 @@
 import Reveal from "@/components/Reveal";
 
+export const metadata = {
+  title: "Merchandise",
+  description: "UM Racing Team merchandise — coming soon.",
+};
+
 export default function MerchandisePage() {
   return (
     <main className="mx-auto flex max-w-3xl flex-col items-center px-4 py-24 text-center md:px-6">

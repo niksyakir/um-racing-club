@@ -2,6 +2,11 @@ import ContactCard from "@/components/ContactCard";
 import Reveal from "@/components/Reveal";
 import { teamContacts } from "./data";
 
+export const metadata = {
+  title: "Contact",
+  description: "Get in touch with the UM Racing Team.",
+};
+
 export default function ContactPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 md:px-6">

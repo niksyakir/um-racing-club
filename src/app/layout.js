@@ -1,6 +1,10 @@
 import { Geist, Geist_Mono, Bebas_Neue } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProfileReminderBanner from "@/components/ProfileReminderBanner";
+import { getRoles } from "@/lib/auth/getRole";
+import { SITE_URL, SITE_NAME } from "@/lib/siteConfig";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,22 +23,47 @@ const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
 });
 
+const description =
+  "Universiti Malaya's Formula Student team, building the university's first electric race car.";
+
 export const metadata = {
-  title: "UM Racing Team",
-  description:
-    "Universiti Malaya's Formula Student team, building the university's first electric race car.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description,
+  openGraph: {
+    title: SITE_NAME,
+    description,
+    siteName: SITE_NAME,
+    type: "website",
+    images: ["/image/team.jpeg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description,
+    images: ["/image/team.jpeg"],
+  },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const { user, roles, profile } = await getRoles();
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Navbar />
-        <main className="flex-1 pt-16">{children}</main>
+        <Navbar user={user} roles={roles} profile={profile} />
+        <main className="flex-1 pt-16">
+          <ProfileReminderBanner user={user} profile={profile} />
+          {children}
+        </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

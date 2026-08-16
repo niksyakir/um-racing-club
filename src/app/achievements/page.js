@@ -1,8 +1,22 @@
 import AchievementsTable from "@/components/AchievementsTable";
 import Reveal from "@/components/Reveal";
-import { achievements, prizeWinnings } from "./data";
+import ErrorState from "@/components/ErrorState";
+import { createClient } from "@/lib/supabase/server";
+import { prizeWinnings } from "./data";
 
-export default function AchievementsPage() {
+export const metadata = {
+  title: "Achievements",
+  description: "A look at how UM Racing has performed on the competition stage.",
+};
+
+export default async function AchievementsPage() {
+  const supabase = await createClient();
+  const { data: achievements, error } = await supabase
+    .from("achievements")
+    .select("*")
+    .eq("is_published", true)
+    .order("date_achieved", { ascending: false });
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 md:px-6">
       <Reveal>
@@ -15,7 +29,11 @@ export default function AchievementsPage() {
       </Reveal>
       <Reveal delay={100}>
         <div className="mt-8">
-          <AchievementsTable data={achievements} />
+          {error ? (
+            <ErrorState description="Couldn't load achievements right now. Please check back later." />
+          ) : (
+            <AchievementsTable data={achievements ?? []} />
+          )}
         </div>
       </Reveal>
       <Reveal delay={200}>

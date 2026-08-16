@@ -2,6 +2,11 @@ import Link from "next/link";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import Reveal from "@/components/Reveal";
 
+export const metadata = {
+  title: "Current Car",
+  description: "A look at UM Racing's current build — chassis, suspension, and powertrain.",
+};
+
 export default function CurrentCarPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-16 md:px-6">

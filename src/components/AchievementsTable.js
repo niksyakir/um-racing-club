@@ -35,18 +35,25 @@ export default function AchievementsTable({ data }) {
         <tbody>
           {data.map((row, i) => (
             <tr
-              key={`${row.competition}-${row.category}`}
+              key={row.id}
               className={`transition-colors hover:bg-gold/10 ${
                 i % 2 === 0 ? "bg-white" : "bg-gray-50"
               }`}
             >
-              <td className="px-4 py-3 text-gray-700">{row.competition}</td>
+              <td className="px-4 py-3 text-gray-700">{row.competition_name}</td>
               <td className="px-4 py-3 text-gray-700">{row.category}</td>
               <td className="px-4 py-3">
                 <PlacementBadge placement={row.placement} />
               </td>
             </tr>
           ))}
+          {data.length === 0 && (
+            <tr>
+              <td className="px-4 py-6 text-center text-gray-500" colSpan={3}>
+                No achievements yet.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
