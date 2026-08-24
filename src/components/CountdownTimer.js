@@ -29,9 +29,14 @@ export default function CountdownTimer({ eventAt, eventName }) {
   const [now, setNow] = useState(null);
 
   useEffect(() => {
-    setNow(Date.now());
-    const id = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(id);
+    const tick = () => setNow(Date.now());
+    const initialTick = setTimeout(tick, 0);
+    const interval = setInterval(tick, 1000);
+
+    return () => {
+      clearTimeout(initialTick);
+      clearInterval(interval);
+    };
   }, []);
 
   if (now === null) {
