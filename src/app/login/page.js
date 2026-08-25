@@ -125,10 +125,10 @@ export default function LoginPage() {
       </form>
 
       <p className="mt-6 text-xs text-gray-500">
-        Don&apos;t have an account? Ask a team admin to create one for you.
+        Don&apos;t have an account or forget your password? 
       </p>
       <p className="mt-1 text-xs text-gray-500">
-        Forgot your password? Ask a team admin to reset it for you.
+         Ask a team admin to reset it for you.
       </p>
     </main>
   );
