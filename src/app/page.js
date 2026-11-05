@@ -71,6 +71,7 @@ export default async function HomePage() {
   return (
     <>
       <section
+        id="home-hero"
         className="relative -mt-16 overflow-hidden bg-navy text-white"
         style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
       >
