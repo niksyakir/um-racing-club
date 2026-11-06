@@ -1,4 +1,4 @@
-import AchievementsTable from "@/components/AchievementsTable";
+import AchievementCards from "@/components/AchievementCards";
 import Reveal from "@/components/Reveal";
 import ErrorState from "@/components/ErrorState";
 import { createClient } from "@/lib/supabase/server";
@@ -28,23 +28,47 @@ export default async function AchievementsPage() {
         </p>
       </Reveal>
       <Reveal delay={100}>
-        <div className="mt-8">
-          {error ? (
-            <ErrorState description="Couldn't load achievements right now. Please check back later." />
-          ) : (
-            <AchievementsTable data={achievements ?? []} />
-          )}
-        </div>
+        <section aria-labelledby="competition-results-heading" className="mt-10">
+          <h2 id="competition-results-heading" className="font-display text-3xl tracking-wide text-navy">
+            Competition Results
+          </h2>
+          <div className="mt-5">
+            {error ? (
+              <ErrorState description="Couldn't load achievements right now. Please check back later." />
+            ) : (
+              <AchievementCards data={achievements ?? []} />
+            )}
+          </div>
+        </section>
       </Reveal>
       <Reveal delay={200}>
-        <div className="mt-6 inline-block rounded-xl border border-gold bg-gold/10 px-6 py-4 shadow-elevated">
-          <p className="text-sm font-semibold uppercase tracking-wide text-navy">
-            NxGV Challenge 2025 Prize Winnings
-          </p>
-          <p className="font-display mt-1 text-4xl tracking-wide text-race-red">
-            {prizeWinnings}
-          </p>
-        </div>
+        <section aria-labelledby="prize-winnings-heading" className="mt-12">
+          <h2 id="prize-winnings-heading" className="font-display text-3xl tracking-wide text-navy">
+            Prize Winnings
+          </h2>
+          <div className="mt-5 overflow-hidden rounded-xl border border-navy/10 shadow-elevated">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-gradient-navy text-white">
+                <tr>
+                  <th scope="col" className="px-4 py-3 font-semibold md:px-6">Competition</th>
+                  <th scope="col" className="px-4 py-3 text-right font-semibold md:px-6">Prize</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white text-gray-700">
+                <tr className="border-b border-navy/10">
+                  <th scope="row" className="px-4 py-4 font-medium md:px-6">NxGV Challenge 2025</th>
+                  <td className="px-4 py-4 text-right font-semibold text-race-red md:px-6">{prizeWinnings}</td>
+                </tr>
+              </tbody>
+              <tfoot className="bg-gold/10 text-navy">
+                <tr>
+                  <th scope="row" className="px-4 py-4 text-left font-bold md:px-6">Total</th>
+                  <td className="px-4 py-4 text-right font-bold md:px-6">{prizeWinnings}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
       </Reveal>
     </main>
   );
